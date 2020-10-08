@@ -1,23 +1,13 @@
+from aochelper import *
 import math
 
 # https://adventofcode.com/2018
-
-inputfile = "input-day1.txt"
-inputdata = []
-
-#########################################
-#########################################
-
-def ReadInput():
-	file = open(inputfile, "r")
-	for line in file:
-		inputdata.append(int(line.strip()))
-	file.close()
 
 #########################################
 #########################################
 
 def TestData():
+	inputdata.clear()
 	inputdata.append(7)
 	inputdata.append(7)
 	inputdata.append(-2)
@@ -28,18 +18,19 @@ def TestData():
 #########################################
 
 def PartA():
-	print("Part A")
+	StartPartA()
 	total = 0
 	for m in inputdata:
-		total += m
+		total += int(m)
 
-	print("Answer:", total)
+	ShowAnswer(total)
 
 #########################################
 #########################################
 
 def PartB():
-	print("Part B")
+	StartPartB()
+	print("Beware ! this will take some time ! Up to 1 hour !")
 
 	loop = 0
 	total = 0
@@ -47,24 +38,24 @@ def PartB():
 	found = False
 	while found == False:
 		loop += 1
-		print(loop, total, len(history))
+		print(loop, total, len(history), end = "\r")
 		for m in inputdata:
-			total += m
+			total += int(m)
 			if total in history:
 				found = True
 				break
 			history.append(total)
 
-	print("Answer:", total)
+	print("")
+	ShowAnswer(total)
 
 #########################################
 #########################################
 
 if __name__ == "__main__":
-	print("Day 1")
+	StartDay(1)
 	ReadInput()
 	# TestData()
 	PartA()
 	PartB()
-
-
+	print("")

@@ -1,24 +1,13 @@
+from aochelper import *
 import math
 import re
 
 # https://adventofcode.com/2018
 
-day = "day3"
-Day = "Day 3"
-
-inputfile = "input-" + day + ".txt"
-inputdata = []
+#########################################
+#########################################
 
 claims = []
-
-#########################################
-#########################################
-
-def ReadInput():
-	file = open(inputfile, "r")
-	for line in file:
-		inputdata.append(line.strip())
-	file.close()
 
 #########################################
 #########################################
@@ -84,7 +73,7 @@ def FindExtends():
 	return maxx, maxy	
 
 def PartA():
-	print("Part A")
+	StartPartA()
 
 	maxx, maxy = FindExtends()
 	grid = [ [ 0 for x in range(maxx) ] for y in range(maxy)]
@@ -100,13 +89,13 @@ def PartA():
 			if grid[y][x] > 1:
 				overlaps += 1
 
-	print("Answer:", overlaps)
+	ShowAnswer(overlaps)
 
 #########################################
 #########################################
 
 def PartB():
-	print("Part B")
+	StartPartB()
 
 	maxx, maxy = FindExtends()
 	grid = [ [ 0 for x in range(maxx) ] for y in range(maxy)]
@@ -129,15 +118,16 @@ def PartB():
 		if bad == False:
 			goodclaimid = claim.id
 
-	print("Answer:", goodclaimid)
+	ShowAnswer(goodclaimid)
 
 #########################################
 #########################################
 
 if __name__ == "__main__":
-	print(Day)
+	StartDay(3)
 	ReadInput()
 	# TestData()
 	ParseInput()
 	PartA()
 	PartB()
+	print("")

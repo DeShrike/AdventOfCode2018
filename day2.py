@@ -1,18 +1,7 @@
+from aochelper import *
 import math
 
 # https://adventofcode.com/2018
-
-inputfile = "input-day2.txt"
-inputdata = []
-
-#########################################
-#########################################
-
-def ReadInput():
-	file = open(inputfile, "r")
-	for line in file:
-		inputdata.append(line.strip())
-	file.close()
 
 #########################################
 #########################################
@@ -62,7 +51,7 @@ def CountA(s):
 	return two, three
 
 def PartA():
-	print("Part A")
+	StartPartA()
 	total2 = 0
 	total3 = 0
 	for m in inputdata:
@@ -70,7 +59,7 @@ def PartA():
 		total2 += two
 		total3 += three
 
-	print("Answer:", total2 * total3)
+	ShowAnswer(total2 * total3)
 
 #########################################
 #########################################
@@ -86,7 +75,7 @@ def CountDifference(s1, s2):
 	return d, cc
 
 def PartB():
-	print("Part B")
+	StartPartB()
 
 	aa = None
 	bb = None
@@ -102,15 +91,16 @@ def PartB():
 				bb = inputdata[b]
 
 	_, common = CountDifference(aa, bb)
-	print("Answer:", common)
+	ShowAnswer(common)
 
 #########################################
 #########################################
 
 if __name__ == "__main__":
-	print("Day 2")
+	StartDay(2)
 	ReadInput()
 	# TestDataA()
 	PartA()
 	# TestDataB()
 	PartB()
+	print("")
