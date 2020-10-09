@@ -63,7 +63,7 @@ def StartPartB():
 def ShowAnswer(result):
 	end = time.time()
 	ellapsed = end - _start
-	print(f"Answer: {BrightGreen}{result}{Reset} took {BrightMagenta}{ellapsed:.5f}{Reset} seconds")
+	print(f"Answer: {BrightGreen}{result}{Reset} | Took {BrightMagenta}{ellapsed:.5f}{Reset} seconds")
 
 ## Main
 

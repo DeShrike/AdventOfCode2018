@@ -30,23 +30,22 @@ def PartA():
 
 def PartB():
 	StartPartB()
-	print("Beware ! this will take some time ! Up to 1 hour !")
 
 	loop = 0
 	total = 0
-	history = []
+	history = {}
 	found = False
 	while found == False:
 		loop += 1
-		print(loop, total, len(history), end = "\r")
+		# print(loop, total, len(history), end = "\r")
 		for m in inputdata:
 			total += int(m)
 			if total in history:
 				found = True
 				break
-			history.append(total)
+			history[total] = True
 
-	print("")
+	# print("")
 	ShowAnswer(total)
 
 #########################################
