@@ -5,7 +5,10 @@ __pycache__/
 
 # C extensions
 *.so
+
+# My additions
 *.o
+nohup.out
 
 # Distribution / packaging
 .Python
