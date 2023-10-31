@@ -1,5 +1,7 @@
-# AdventOfCode2018
+# AdventOfCode 2023
 
-Python code for the AdventOfCode 2018 Challenges
+Python code for the AdventOfCode 2023 Challenges
 
-https://adventofcode.com/2018
+https://adventofcode.com/2023
+
+Python 3.7.3 or newer

@@ -1,20 +1,20 @@
 CC=gcc
 AR=ar
 
-all: day9
+all: startday-c
 
 rmbin:
-	rm day9
+	startday-c
 
-###################################00
+#########################################
 
-day9: day9.o
-	$(CC) -o day9 day9.o
+startday-c: startday-c.o
+	$(CC) -o startday-c startday-c.o
 
-day9.o: day9.c
-	$(CC) -c -O3 day9.c
+startday-c.o: startday-c.c
+	$(CC) -c -O3 startday-c.c
 
-###################################00
+#############################################
 
 clean:
 	rm *.o
