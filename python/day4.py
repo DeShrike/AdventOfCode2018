@@ -60,8 +60,7 @@ class Day4Solution(Aoc):
     def Run(self):
         self.StartDay(4, "AOC")
         self.ReadInput()
-        self.PartA()
-        self.PartB()
+        self.PartAandB()
 
     def Test(self):
         self.StartDay(4)
@@ -131,7 +130,7 @@ class Day4Solution(Aoc):
             m += 1
         return d, m
 
-    def PartA(self):
+    def PartAandB(self):
         self.StartPartA()
 
         records = self.ParseInput()
@@ -202,12 +201,8 @@ class Day4Solution(Aoc):
 
         self.ShowAnswer(answer)
 
-    def PartB(self):
         self.StartPartB()
 
-        records = self.ParseInput()
-        self.SortInput(records)
-        data = []
         guard = 0
         mins = []
         counts = {}
