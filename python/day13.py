@@ -16,6 +16,7 @@ class Cart():
         self.y = y
         self.step = 0
         self.direction = None
+        self.removed = False
         if chr == "v":
             self.direction = Direction.DOWN
         if chr == "^":
@@ -119,12 +120,12 @@ class Day13Solution(Aoc):
         self.inputdata.clear()
         testdata = \
         """
-        /->-\        
+        /->-\\
         |   |  /----\\
         | /-+--+-\  |
         | | |  | v  |
         \-+-/  \-+--/
-        ..\------/  
+        ..\------/
         """
         self.inputdata = [line.strip() for line in testdata.strip().split("\n")]
         return "7,3"
@@ -134,12 +135,16 @@ class Day13Solution(Aoc):
         # self.TestDataA()    # If test data is same as test data for part A
         testdata = \
         """
-        1000
-        2000
-        3000
+        />-<\\
+        |   |
+        | /<+-\\
+        | | | v
+        \>+</ |
+        ..|   ^
+        ..\<->/
         """
         self.inputdata = [line.strip() for line in testdata.strip().split("\n")]
-        return None
+        return "6,4"
 
     def BuildGrid(self):
         rows = len(self.inputdata)
@@ -154,7 +159,7 @@ class Day13Solution(Aoc):
                 if x >= len(self.inputdata[y]):
                     continue
                 c = self.inputdata[y][x]
-                if c in "v^<>":    
+                if c in "v^<>":
                     cart = Cart(c, x, y)
                     carts.append(cart)
                 if c in "<>":
@@ -162,7 +167,7 @@ class Day13Solution(Aoc):
                 if c in "v^":
                     c = "|"
                 if c == ".":
-                    c = " "                
+                    c = " "
                 grid[y][x] = c
 
         return grid, carts
@@ -175,6 +180,17 @@ class Day13Solution(Aoc):
                 return f"{cart.x},{cart.y}"
             posses.append(p)
         return None
+
+    def CheckCollisionAndRemove(self, carts):
+        posses = {}
+        for cart in carts:
+            if cart.removed:
+                continue
+            p = (cart.x, cart.y)
+            if p in posses:
+                cart.removed = True
+                posses[p].removed = True
+            posses[p] = cart
 
     def PrintGrid(self, grid):
         for line in grid:
@@ -205,15 +221,31 @@ class Day13Solution(Aoc):
                 break
 
         # Attempt 1 = 68,62 is wrong
+        # Attempt 2 = 26,92 is correct
 
         self.ShowAnswer(answer)
 
     def PartB(self):
         self.StartPartB()
 
-        # Add solution here
-
+        grid, carts = self.BuildGrid()
         answer = None
+
+        while True:
+            carts.sort(key=lambda c: c.SortKey())
+            for cart in carts:
+                if cart.removed:
+                    continue
+                cart.Move(grid)
+                self.CheckCollisionAndRemove(carts)
+
+            active_carts = [cart for cart in carts if cart.removed == False]
+            # print(active_carts)
+            if answer is None and len(active_carts) == 1:
+                answer = f"{active_carts[0].x},{active_carts[0].y}"
+
+            if answer is not None:
+                break
 
         self.ShowAnswer(answer)
 
