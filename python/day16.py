@@ -15,7 +15,7 @@ class Sample():
         self.A = None
         self.B = None
         self.C = None
-        self.possibilities = 0
+        self.possibilities = []
 
     def __repr__(self):
         return f"{self.before} -> {self.after} | {self.opcode} {self.A} {self.B} {self.C} | P: {self.possibilities}"
@@ -42,7 +42,10 @@ class Cpu():
             ("eqrr", self.eqrr)
         ]
         self.reset()
-    
+
+    def set_real_instructions(self, real_instructions):
+        self.real_instructions = real_instructions
+
     def reset(self):
         self.R0 = 0
         self.R1 = 0
@@ -54,6 +57,9 @@ class Cpu():
 
     def execute(self, opcode: int, a: int, b: int, c: int) -> None:
         self.opcodes[opcode][1](a, b, c)
+
+    def execute_real(self, opcode: int, a: int, b: int, c: int) -> None:
+        self.opcodes[self.real_instructions[opcode]][1](a, b, c)
 
     def register(self, ix: int) -> int:
         if ix == 0:
@@ -165,14 +171,7 @@ class Day16Solution(Aoc):
 
     def TestDataB(self):
         self.inputdata.clear()
-        # self.TestDataA()    # If test data is same as test data for part A
-        testdata = \
-        """
-        1000
-        2000
-        3000
-        """
-        self.inputdata = [line.strip() for line in testdata.strip().split("\n")]
+        self.TestDataA()    # If test data is same as test data for part A
         return None
 
     def TestOpcode(self, opcode: int, sample: Sample):
@@ -184,7 +183,7 @@ class Day16Solution(Aoc):
     def TestSample(self, sample: Sample) -> None:
         for opcode in range(16):
             if self.TestOpcode(opcode, sample):
-                sample.possibilities += 1
+                sample.possibilities.append(opcode)
 
     def ParseInput(self):
         samples = []
@@ -198,7 +197,7 @@ class Day16Solution(Aoc):
                 l3 = self.inputdata[i + 2]
                 if len(l1) == 0:
                     mode = 1
-                    i += 1
+                    i += 2
                 else:
                     s = Sample()
                     parts = l2.split(" ")
@@ -239,7 +238,7 @@ class Day16Solution(Aoc):
             # print(s)
             self.TestSample(s)
             # print(s)
-            if s.possibilities >= 3:
+            if len(s.possibilities) >= 3:
                 answer += 1
 
         # Attempt 1: 143 is too low
@@ -250,9 +249,34 @@ class Day16Solution(Aoc):
     def PartB(self):
         self.StartPartB()
 
-        # Add solution here
+        real_instructions = [None for _ in range(16)]
 
-        answer = None
+        samples, program = self.ParseInput()
+        for s in samples:
+            self.TestSample(s)
+
+        while None in real_instructions:
+            for s in samples:
+                if len(s.possibilities) == 1:
+                    found = s.possibilities[0]
+                    real_instructions[s.opcode] = found
+                    print(f"{s.opcode} == {found}")
+                    for ss in samples:
+                        if found in ss.possibilities:
+                            ss.possibilities.remove(found)
+
+                    break
+
+        cpu = Cpu()
+        cpu.set_real_instructions(real_instructions)
+        for line in program:
+            opcode = int(line[0])
+            a = int(line[1])
+            b = int(line[2])
+            c = int(line[3])
+            cpu.execute_real(opcode, a, b, c)
+
+        answer = cpu.R0
 
         self.ShowAnswer(answer)
 
