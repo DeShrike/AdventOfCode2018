@@ -37,15 +37,12 @@ class Day14Solution(Aoc):
 
     def TestDataB(self):
         self.inputdata.clear()
-        # self.TestDataA()    # If test data is same as test data for part A
         testdata = \
         """
-        1000
-        2000
-        3000
+        92510
         """
         self.inputdata = [line.strip() for line in testdata.strip().split("\n")]
-        return None
+        return 18
 
     def PartA(self):
         self.StartPartA()
@@ -62,8 +59,6 @@ class Day14Solution(Aoc):
             e2 += reci[e2] + 1
             e1 = e1 % len(reci)
             e2 = e2 % len(reci)
-            # print(reci)
-            # a = input()
         answer = ""
         for ri in reci[steps:steps + 10]:
             answer += str(ri)
@@ -73,9 +68,35 @@ class Day14Solution(Aoc):
     def PartB(self):
         self.StartPartB()
 
-        # Add solution here
+        steps = str(self.inputdata[0])
+        l = len(steps)
+        reci = [ 3, 7 ]
+        e1 = 0
+        e2 = 1
+        answer = 0
+        while True:
+            n = str(reci[e1] + reci[e2])
+            for c in n:
+                reci.append(int(c))
+            e1 += reci[e1] + 1
+            e2 += reci[e2] + 1
+            e1 = e1 % len(reci)
+            e2 = e2 % len(reci)
+            answer += 1
 
-        answer = None
+            if len(reci) > l:
+                lastx = reci[-l:]
+                # print(reci)
+                lastxstr = "".join([str(x) for x in lastx])
+                # print(answer, lastx, lastxstr)
+                if lastxstr == steps:
+                    print(answer, lastx, lastxstr)
+                    break
+                # a = input()
+        answer -= 1
+
+        # Attempt 1: 15538187 is too low
+        # Attempt 2: 132671793 is too high
 
         self.ShowAnswer(answer)
 
