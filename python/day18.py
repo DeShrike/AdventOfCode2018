@@ -59,14 +59,7 @@ class Day18Solution(Aoc):
     
     def TestDataB(self):
         self.inputdata.clear()
-        # self.TestDataA()    # If test data is same as test data for part A
-        testdata = \
-        """
-        1000
-        2000
-        3000
-        """
-        self.inputdata = [line.strip() for line in testdata.strip().split("\n")]
+        self.TestDataA()    # If test data is same as test data for part A
         return None
 
     def Neighbors(self, width: int, height: int, x: int, y: int):
@@ -111,34 +104,45 @@ class Day18Solution(Aoc):
             for x in range(height):
                 grid[y][x] = newgrid[y][x]
 
-    def PartA(self):
-        self.StartPartA()
-
-        answer = None
+    def Doit(self, minutes: int) -> int:
         width, height, grid = self.ParseInput()
 
         # self.PrintGrid(width, height, grid)
-        for _ in range(10):
+        i = 0
+        while i < minutes:
+            if i % 100 == 0 and i > 0:
+                print(f"Iteration {i}", end="\r")
+
             self.Step(width, height, grid)
             # self.PrintGrid(width, height, grid)
+            flat = list(itertools.chain.from_iterable(grid))
+
+            wood = [f for f in flat if f == 2]
+            lumber = [f for f in flat if f == 1]
+
+            if len(wood) * len(lumber) == 186063:
+                while i + 28 < minutes:
+                    i += 28
+            i += 1
 
         flat = list(itertools.chain.from_iterable(grid))
 
         wood = [f for f in flat if f == 2]
         lumber = [f for f in flat if f == 1]
 
-        # print(wood)
-        # print(lumber)
+        return len(wood) * len(lumber)
 
-        answer = len(wood) * len(lumber)
+    def PartA(self):
+        self.StartPartA()
+
+        answer = self.Doit(10)
+
         self.ShowAnswer(answer)
 
     def PartB(self):
         self.StartPartB()
 
-        # Add solution here
-
-        answer = None
+        answer = self.Doit(1_000_000_000)
 
         self.ShowAnswer(answer)
 
