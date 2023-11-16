@@ -24,21 +24,21 @@ class Sample():
 class Cpu():
     def __init__(self):
         self.opcodes = [
-            ("addr", self.addr),  
-            ("addi", self.addi), 
-            ("mulr", self.mulr), 
-            ("muli", self.muli), 
-            ("banr", self.banr), 
-            ("bani", self.bani), 
-            ("borr", self.borr), 
-            ("bori", self.bori), 
-            ("setr", self.setr), 
+            ("addr", self.addr),
+            ("addi", self.addi),
+            ("mulr", self.mulr),
+            ("muli", self.muli),
+            ("banr", self.banr),
+            ("bani", self.bani),
+            ("borr", self.borr),
+            ("bori", self.bori),
+            ("setr", self.setr),
             ("seti", self.seti),
-            ("gtir", self.gtir), 
-            ("gtri", self.gtri), 
-            ("gtrr", self.gtrr), 
-            ("eqir", self.eqir), 
-            ("eqri", self.eqri), 
+            ("gtir", self.gtir),
+            ("gtri", self.gtri),
+            ("gtrr", self.gtrr),
+            ("eqir", self.eqir),
+            ("eqri", self.eqri),
             ("eqrr", self.eqrr)
         ]
         self.reset()
@@ -205,7 +205,7 @@ class Day16Solution(Aoc):
                     s.A = int(parts[1])
                     s.B = int(parts[2])
                     s.C = int(parts[3])
-                    
+
                     if l1[0:9] != "Before: [":
                         print(f"Line {i}: expecting 'Before'")
                         quit(1)

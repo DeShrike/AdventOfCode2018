@@ -12,7 +12,7 @@ import sys
 class Day17Solution(Aoc):
 
     def Run(self):
-        self.StartDay(17, "AOC")
+        self.StartDay(17, "Reservoir Research")
         self.ReadInput()
         self.PartA()
         self.PartB()
